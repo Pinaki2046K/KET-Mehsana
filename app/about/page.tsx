@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 import { Heart, Target, Users, Globe, Eye, Flag, BookOpen, CheckCircle } from "lucide-react";
 
 // ─── Design Tokens ───────────────────────────────────────────────
@@ -197,7 +198,7 @@ export default function AboutPage() {
               <motion.div
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 style={{
-                  gridColumn: window.innerWidth >= 768 ? "span 1" : "1 / -1", // fallback for inline responsive
+                  gridColumn: "span 1", // fallback for inline responsive
                   background: `linear-gradient(145deg, ${C.deep} 0%, ${C.darkBrown} 100%)`,
                   padding: "3rem", borderRadius: "16px", color: C.white,
                   border: `1px solid ${C.borderMid}40`
