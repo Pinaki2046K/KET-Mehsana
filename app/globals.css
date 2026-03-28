@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --cream: #FAF7F2;
+  --warm-white: #F5F0E8;
+  --sage: #7B9E87;
+  --sage-light: #A8C5B0;
+  --sage-dark: #4A6B55;
+  --amber: #C8862A;
+  --amber-light: #E8A84A;
+  --charcoal: #1C1C1E;
+}
+
+* { box-sizing: border-box; padding: 0; margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--warm-white); }
+::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 3px; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); opacity: 0.4; }
+  50% { transform: translateY(-20px); opacity: 0.8; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(123, 158, 135, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(123, 158, 135, 0.6); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+.btn-primary {
+  background: linear-gradient(135deg, #4A6B55, #7B9E87);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(74, 107, 85, 0.4); }
+
+.btn-outline {
+  border: 2px solid #4A6B55;
+  color: #4A6B55;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.btn-outline:hover { background: #4A6B55; color: white; transform: translateY(-2px); }
+
+.btn-amber {
+  background: linear-gradient(135deg, #C8862A, #E8A84A);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.btn-amber:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200, 134, 42, 0.4); }
+
+.card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+
+.deco-line { width: 60px; height: 3px; background: linear-gradient(90deg, #7B9E87, #E8A84A); border-radius: 2px; }
+
+.img-bw { filter: grayscale(100%); transition: filter 0.6s ease; }
+.img-bw:hover { filter: grayscale(0%); }
