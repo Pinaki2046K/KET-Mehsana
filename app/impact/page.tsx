@@ -1,89 +1,72 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, Heart, Briefcase, Award, BookOpen, Stethoscope, Trophy, Star } from 'lucide-react';
+import { Users, Heart, Briefcase, Award, BookOpen, Stethoscope, Trophy, Star, Quote } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import SectionHeading from '@/components/SectionHeading';
 import AnimatedCounter from '@/components/AnimatedCounter';
 
+// ─── Design Tokens ────────────────────────────────────────────────
+const C = {
+  cream:      "#FAF6EE",
+  parchment:  "#F3ECD8",
+  pale:       "#FDF9F0",
+  border:     "#E2CFA0",
+  borderMid:  "#C9B07A",
+  amber:      "#C8862A",
+  amberLight: "#E6A84A",
+  amberGlow:  "#F5C878",
+  deep:       "#3A2200",
+  darkBrown:  "#5C3600",
+  textMain:   "#2E1A00",
+  textBody:   "#5A3E1B",
+  textMuted:  "#8A6B3A",
+  white:      "#FFFCF5",
+  gold:       "#B8860B",
+};
+
+const font = {
+  display: "'Cormorant Garamond', 'Georgia', serif",
+  serif:   "'EB Garamond', 'Georgia', serif",
+  sans:    "'Raleway', 'Helvetica Neue', sans-serif",
+};
+
+// ─── Shared Helpers ───────────────────────────────────────────────
+const Rule = ({ width = 48 }: { width?: number }) => (
+  <div style={{ width, height: 2, background: C.amber, borderRadius: 99, margin: "0 auto 1.5rem" }} />
+);
+
+const Eyebrow = ({ children, light = false }: { children: React.ReactNode; light?: boolean }) => (
+  <p style={{
+    fontFamily: font.sans, fontWeight: 700, fontSize: "0.65rem",
+    letterSpacing: "0.22em", textTransform: "uppercase",
+    color: light ? C.amberLight : C.amber, marginBottom: "0.75rem",
+    textAlign: "center",
+  }}>{children}</p>
+);
+
+// ─── Data ─────────────────────────────────────────────────────────
 const stats = [
-  { 
-    icon: Users, 
-    value: 25000, 
-    suffix: '+', 
-    label: 'Children Supported Directly', 
-    desc: 'Education, aids, certification, pension support and more' 
-  },
-  { 
-    icon: Heart, 
-    value: 4500, 
-    suffix: '+', 
-    label: 'Families Empowered', 
-    desc: 'Through counseling, training and ongoing support' 
-  },
-  { 
-    icon: Stethoscope, 
-    value: 280, 
-    suffix: '+', 
-    label: 'Therapy Beneficiaries', 
-    desc: 'Speech therapy & physiotherapy services received' 
-  },
-  { 
-    icon: Briefcase, 
-    value: 258, 
-    suffix: '', 
-    label: 'Youth Self-Employed', 
-    desc: 'Vocational graduates now earning livelihoods' 
-  },
-  { 
-    icon: Trophy, 
-    value: 52, 
-    suffix: '', 
-    label: 'Sports Medals', 
-    desc: 'Won at national and international competitions' 
-  },
-  { 
-    icon: Star, 
-    value: 13, 
-    suffix: '', 
-    label: 'International Medals', 
-    desc: 'Including World Para-Olympic achievements' 
-  },
+  { icon: Users,       value: 25000, suffix: '+', label: 'Children Supported',    desc: 'Education, aids, certification, pension support and more' },
+  { icon: Heart,       value: 4500,  suffix: '+', label: 'Families Empowered',    desc: 'Through counseling, training and ongoing support' },
+  { icon: Stethoscope, value: 280,   suffix: '+', label: 'Therapy Beneficiaries', desc: 'Speech therapy & physiotherapy services received' },
+  { icon: Briefcase,   value: 258,   suffix: '',  label: 'Youth Self-Employed',   desc: 'Vocational graduates now earning dignified livelihoods' },
+  { icon: Trophy,      value: 52,    suffix: '',  label: 'Sports Medals',         desc: 'Won at national and international competitions' },
+  { icon: Star,        value: 13,    suffix: '',  label: 'International Medals',  desc: 'Including World Para-Olympic achievements' },
 ];
 
 const areas = [
-  { 
-    icon: BookOpen, 
-    label: 'Education', 
-    color: '#4A6B55', 
-    desc: 'Individualized education plans helping children learn, grow, and prepare for life.' 
-  },
-  { 
-    icon: Stethoscope, 
-    label: 'Therapy', 
-    color: '#7B9E87', 
-    desc: 'Speech, physio, and occupational therapy transforming developmental outcomes.' 
-  },
-  { 
-    icon: Briefcase, 
-    label: 'Livelihood', 
-    color: '#C8862A', 
-    desc: 'Vocational training opening doors to dignity, independence, and income.' 
-  },
-  { 
-    icon: Users, 
-    label: 'Inclusion', 
-    color: '#1C1C1E', 
-    desc: 'Community programs that ensure every child is seen, heard, and valued.' 
-  },
+  { icon: BookOpen,    label: 'Education',  desc: 'Individualized education plans helping children learn, grow, and prepare for life.' },
+  { icon: Stethoscope, label: 'Therapy',    desc: 'Speech, physio, and occupational therapy transforming developmental outcomes.' },
+  { icon: Briefcase,   label: 'Livelihood', desc: 'Vocational training opening doors to dignity, independence, and income.' },
+  { icon: Users,       label: 'Inclusion',  desc: 'Community programs ensuring every child is seen, heard, and valued.' },
 ];
 
 const medals = [
-  { event: 'World Para-Olympic Games', achievement: 'Medal Winner', level: 'International 🌍' },
-  { event: 'National Sports Championship', achievement: 'Multiple Medals', level: 'National 🇮🇳' },
-  { event: 'State Para Games', achievement: 'Gold, Silver & Bronze', level: 'State 🏆' },
-  { event: 'District Sports Meet', achievement: 'Consistent Champions', level: 'District 🥇' },
+  { event: 'World Para-Olympic Games',   achievement: 'Medal Winner',          level: 'International', flag: '🌍' },
+  { event: 'National Sports Championship', achievement: 'Multiple Medals',     level: 'National',      flag: '🇮🇳' },
+  { event: 'State Para Games',           achievement: 'Gold, Silver & Bronze', level: 'State',         flag: '🏆' },
+  { event: 'District Sports Meet',       achievement: 'Consistent Champions',  level: 'District',      flag: '🥇' },
 ];
 
 const successStories = [
@@ -92,132 +75,227 @@ const successStories = [
   "A national medal winner who was once told she couldn't compete",
 ];
 
+// ─── Page ─────────────────────────────────────────────────────────
 export default function ImpactPage() {
   return (
     <>
       <Header />
-      <main>
-        {/* Hero Section */}
-        <section 
-          className="relative overflow-hidden pt-32 pb-20"
-          style={{ background: 'linear-gradient(135deg, #4A6B55 0%, #2C4A35 100%)' }}
-        >
-          <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
-            <motion.p 
-              className="mb-4 text-sm font-semibold uppercase tracking-widest text-green-200"
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }}
+      <main style={{ background: C.cream, fontFamily: font.serif, color: C.textMain }}>
+
+        {/* ════════════════════════════════════════════════════
+            HERO
+        ════════════════════════════════════════════════════ */}
+        <section style={{
+          background: `linear-gradient(160deg, ${C.deep} 0%, ${C.darkBrown} 100%)`,
+          padding: "8rem 1.5rem 5.5rem",
+          position: "relative", overflow: "hidden",
+        }}>
+          {/* Dot grid texture */}
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none",
+            backgroundImage: `radial-gradient(circle, ${C.amber}18 1px, transparent 1px)`,
+            backgroundSize: "38px 38px",
+          }} />
+          {/* Amber glow */}
+          <div style={{
+            position: "absolute", top: "-80px", right: "-80px",
+            width: "500px", height: "500px", borderRadius: "50%",
+            background: `radial-gradient(circle, ${C.amber}22 0%, transparent 65%)`,
+            pointerEvents: "none",
+          }} />
+
+          <div style={{ maxWidth: "760px", margin: "0 auto", textAlign: "center", position: "relative", zIndex: 1 }}>
+            <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+              <Eyebrow light>Our Impact</Eyebrow>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}
+              style={{
+                fontFamily: font.display, fontWeight: 700,
+                fontSize: "clamp(2.8rem, 6.5vw, 5rem)", lineHeight: 1.08,
+                letterSpacing: "-0.015em", color: C.white,
+                marginBottom: "1.5rem",
+              }}
             >
-              Our Impact
-            </motion.p>
-            <motion.h1 
-              className="mb-6 text-5xl font-bold text-white md:text-7xl"
-              style={{ fontFamily: 'Cormorant Garamond, serif' }}
-              initial={{ opacity: 0, y: 30 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.1 }}
-            >
-              Every Number is a Life
+              Every Number<br />
+              <em style={{ fontStyle: "italic", color: C.amberGlow }}>is a Life.</em>
             </motion.h1>
-            <motion.p 
-              className="mx-auto max-w-2xl text-xl leading-relaxed text-green-100"
-              initial={{ opacity: 0, y: 30 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.2 }}
+
+            <motion.p
+              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}
+              style={{
+                fontFamily: font.serif, fontSize: "1.1rem", lineHeight: 1.85,
+                color: `${C.amberLight}BB`, maxWidth: "560px", margin: "0 auto",
+              }}
             >
               These are not just statistics. Behind every number is a child who now speaks, walks, learns, earns, or stands on a podium holding a medal for India.
             </motion.p>
           </div>
         </section>
 
-        {/* Stats Grid Section */}
-        <section className="py-24" style={{ background: '#FAF7F2' }}>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading 
-              eyebrow="Our Reach" 
-              title="Numbers That Inspire" 
-              subtitle="Three decades of relentless work, measured in lives changed." 
-            />
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* ════════════════════════════════════════════════════
+            STATS GRID
+        ════════════════════════════════════════════════════ */}
+        <section style={{ background: C.cream, padding: "7rem 1.5rem" }}>
+          <div style={{ maxWidth: "1180px", margin: "0 auto" }}>
+
+            <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+              <Eyebrow>Our Reach</Eyebrow>
+              <h2 style={{
+                fontFamily: font.display, fontWeight: 700,
+                fontSize: "clamp(2rem, 4vw, 2.8rem)", color: C.textMain,
+                letterSpacing: "-0.01em", marginBottom: "0.75rem",
+              }}>Numbers That Inspire</h2>
+              <Rule />
+              <p style={{
+                fontFamily: font.sans, fontSize: "0.9rem", color: C.textMuted,
+                maxWidth: "440px", margin: "0 auto", lineHeight: 1.7,
+              }}>Three decades of relentless work, measured in lives changed.</p>
+            </div>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "1.5px",
+              background: C.border,
+              borderRadius: "12px", overflow: "hidden",
+              boxShadow: `0 20px 60px rgba(58,34,0,0.07)`,
+            }}>
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
-                  className="rounded-2xl border bg-white p-8 text-center"
-                  style={{ borderColor: 'rgba(123,158,135,0.15)' }}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
+                  initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                  style={{
+                    background: C.white,
+                    padding: "2.75rem 2rem",
+                    textAlign: "center",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                  whileHover={{ background: C.pale } as any}
                 >
-                  <div 
-                    className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl"
-                    style={{ background: 'linear-gradient(135deg, rgba(74,107,85,0.1), rgba(123,158,135,0.2))' }}
-                  >
-                    <stat.icon size={28} style={{ color: '#4A6B55' }} />
+                  {/* Watermark number */}
+                  <span style={{
+                    position: "absolute", top: "0.5rem", right: "1rem",
+                    fontFamily: font.display, fontSize: "5rem", fontWeight: 700,
+                    color: C.border, lineHeight: 1, userSelect: "none", pointerEvents: "none",
+                  }}>{String(i + 1).padStart(2, "0")}</span>
+
+                  {/* Icon */}
+                  <div style={{
+                    width: "50px", height: "50px", borderRadius: "10px",
+                    background: `${C.amber}14`, border: `1px solid ${C.border}`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    margin: "0 auto 1.25rem",
+                  }}>
+                    <stat.icon size={22} style={{ color: C.amber }} />
                   </div>
-                  <div 
-                    className="mb-2 text-5xl font-bold"
-                    style={{ fontFamily: 'Cormorant Garamond, serif', color: '#4A6B55' }}
-                  >
+
+                  {/* Number */}
+                  <div style={{
+                    fontFamily: font.display, fontWeight: 700,
+                    fontSize: "3.5rem", lineHeight: 1,
+                    color: C.amber, marginBottom: "0.4rem",
+                  }}>
                     <AnimatedCounter value={stat.value} />{stat.suffix}
                   </div>
-                  <div className="mb-2 text-lg font-semibold" style={{ color: '#1C1C1E' }}>
+
+                  {/* Label */}
+                  <div style={{
+                    fontFamily: font.sans, fontWeight: 700,
+                    fontSize: "0.82rem", letterSpacing: "0.04em",
+                    color: C.textMain, marginBottom: "0.5rem", textTransform: "uppercase",
+                  }}>
                     {stat.label}
                   </div>
-                  <p className="text-sm" style={{ color: '#8A8580' }}>
+
+                  {/* Desc */}
+                  <p style={{ fontFamily: font.sans, fontSize: "0.78rem", color: C.textMuted, lineHeight: 1.65 }}>
                     {stat.desc}
                   </p>
                 </motion.div>
               ))}
             </div>
-            <motion.p 
-              className="mt-10 text-center text-lg font-semibold"
-              style={{ color: '#4A6B55', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem' }}
-              initial={{ opacity: 0 }} 
-              whileInView={{ opacity: 1 }} 
-              viewport={{ once: true }}
+
+            {/* Closing line */}
+            <motion.p
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              style={{
+                marginTop: "2.5rem", textAlign: "center",
+                fontFamily: font.display, fontStyle: "italic",
+                fontSize: "1.4rem", color: C.amber,
+              }}
             >
-              {"Every number represents a life transformed."}
+              Every number represents a life transformed.
             </motion.p>
           </div>
         </section>
 
-        {/* Impact Areas Section */}
-        <section className="py-24" style={{ background: '#F5F0E8' }}>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading 
-              eyebrow="Areas of Change" 
-              title="Four Dimensions of Impact" 
-              subtitle="We work across education, therapy, livelihood, and social inclusion to create complete transformation." 
-            />
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {/* ════════════════════════════════════════════════════
+            FOUR DIMENSIONS — editorial horizontal layout
+        ════════════════════════════════════════════════════ */}
+        <section style={{ background: C.parchment, padding: "7rem 1.5rem" }}>
+          <div style={{ maxWidth: "1180px", margin: "0 auto" }}>
+
+            <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+              <Eyebrow>Areas of Change</Eyebrow>
+              <h2 style={{
+                fontFamily: font.display, fontWeight: 700,
+                fontSize: "clamp(2rem, 4vw, 2.8rem)", color: C.textMain,
+                letterSpacing: "-0.01em", marginBottom: "0.75rem",
+              }}>Four Dimensions of Impact</h2>
+              <Rule />
+              <p style={{ fontFamily: font.sans, fontSize: "0.9rem", color: C.textMuted, maxWidth: "480px", margin: "0 auto", lineHeight: 1.7 }}>
+                We work across education, therapy, livelihood, and social inclusion to create complete transformation.
+              </p>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.5rem" }}>
               {areas.map((area, i) => (
                 <motion.div
                   key={i}
-                  className="overflow-hidden rounded-2xl"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                  style={{
+                    background: C.white,
+                    borderRadius: "10px",
+                    overflow: "hidden",
+                    boxShadow: `0 8px 32px rgba(58,34,0,0.06)`,
+                    border: `1px solid ${C.border}`,
+                  }}
+                  whileHover={{ y: -4 } as any}
                 >
-                  <div className="h-2" style={{ background: area.color }} />
-                  <div 
-                    className="border border-t-0 bg-white p-7"
-                    style={{ borderColor: 'rgba(0,0,0,0.07)' }}
-                  >
-                    <div 
-                      className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
-                      style={{ background: `${area.color}15` }}
-                    >
-                      <area.icon size={22} style={{ color: area.color }} />
+                  {/* Amber top bar */}
+                  <div style={{ height: "3px", background: `linear-gradient(to right, ${C.amber}, ${C.amberLight})` }} />
+
+                  <div style={{ padding: "2rem 1.75rem" }}>
+                    {/* Number */}
+                    <p style={{
+                      fontFamily: font.display, fontSize: "2.5rem", fontWeight: 700,
+                      color: C.border, lineHeight: 1, marginBottom: "1rem",
+                    }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </p>
+
+                    {/* Icon */}
+                    <div style={{
+                      width: "42px", height: "42px", borderRadius: "8px",
+                      background: `${C.amber}14`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      marginBottom: "1rem",
+                    }}>
+                      <area.icon size={20} style={{ color: C.amber }} />
                     </div>
-                    <h3 
-                      className="mb-3 text-xl font-bold"
-                      style={{ fontFamily: 'Playfair Display, serif', color: '#1C1C1E' }}
-                    >
+
+                    <h3 style={{
+                      fontFamily: font.display, fontWeight: 700,
+                      fontSize: "1.3rem", color: C.textMain, marginBottom: "0.65rem",
+                    }}>
                       {area.label}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#8A8580' }}>
+                    <p style={{ fontFamily: font.sans, fontSize: "0.82rem", color: C.textMuted, lineHeight: 1.7 }}>
                       {area.desc}
                     </p>
                   </div>
@@ -227,129 +305,195 @@ export default function ImpactPage() {
           </div>
         </section>
 
-        {/* Sports Medals Section */}
-        <section 
-          className="relative overflow-hidden py-24"
-          style={{ background: '#1C1C1E' }}
-        >
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            {[...Array(5)].map((_, i) => (
-              <motion.div 
-                key={i} 
-                className="absolute rounded-full"
-                style={{ 
-                  width: `${120 + i * 60}px`, 
-                  height: `${120 + i * 60}px`, 
-                  border: '1px solid rgba(212,175,55,0.08)', 
-                  left: `${i * 20}%`, 
-                  top: `${i * 15}%` 
-                }} 
-                animate={{ rotate: 360 }} 
-                transition={{ duration: 30 + i * 8, repeat: Infinity, ease: 'linear' }} 
-              />
-            ))}
-          </div>
-          <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading 
-              eyebrow="Sports Excellence" 
-              title="From Margins to Medals" 
-              subtitle="Our students have not only progressed in life — they have brought pride to the nation on global platforms."
-              light 
+        {/* ════════════════════════════════════════════════════
+            SPORTS MEDALS — dark amber brand section
+        ════════════════════════════════════════════════════ */}
+        <section style={{
+          background: `linear-gradient(145deg, ${C.deep} 0%, ${C.darkBrown} 100%)`,
+          padding: "7rem 1.5rem", position: "relative", overflow: "hidden",
+        }}>
+          {/* Pulsing rings */}
+          {[260, 440, 620].map((size, i) => (
+            <motion.div
+              key={i}
+              style={{
+                position: "absolute", top: "50%", left: "50%",
+                width: size, height: size, borderRadius: "50%",
+                border: `1px solid ${C.amber}${14 - i * 3}`,
+                transform: "translate(-50%, -50%)",
+                pointerEvents: "none",
+              }}
+              animate={{ scale: [1, 1.05, 1], opacity: [0.5, 0.8, 0.5] }}
+              transition={{ duration: 5 + i * 2, repeat: Infinity, ease: "easeInOut" }}
             />
-            <div className="grid gap-6 md:grid-cols-2">
+          ))}
+
+          <div style={{ maxWidth: "1000px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+
+            <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+              <Eyebrow light>Sports Excellence</Eyebrow>
+              <h2 style={{
+                fontFamily: font.display, fontWeight: 700,
+                fontSize: "clamp(2.2rem, 5vw, 3.8rem)", lineHeight: 1.1,
+                color: C.white, letterSpacing: "-0.015em",
+                marginBottom: "0.75rem",
+              }}>
+                From Margins<br />
+                <em style={{ fontStyle: "italic", color: C.amberGlow }}>to Medals.</em>
+              </h2>
+              <div style={{ width: "48px", height: "2px", background: C.amber, borderRadius: 99, margin: "0 auto 1.25rem" }} />
+              <p style={{ fontFamily: font.sans, fontSize: "0.88rem", color: `${C.amberLight}88`, maxWidth: "480px", margin: "0 auto", lineHeight: 1.75 }}>
+                Our students have not only progressed in life — they have brought pride to the nation on global platforms.
+              </p>
+            </div>
+
+            {/* Medal cards grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", marginBottom: "2.5rem" }}>
               {medals.map((m, i) => (
                 <motion.div
                   key={i}
-                  className="rounded-2xl border p-6"
-                  style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(212,175,55,0.2)' }}
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -24 : 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ y: -3 } as any}
+                  style={{
+                    background: `rgba(255,248,230,0.04)`,
+                    border: `1px solid ${C.amber}30`,
+                    borderRadius: "10px",
+                    padding: "1.5rem 1.75rem",
+                    display: "flex", gap: "1.1rem", alignItems: "flex-start",
+                  }}
                 >
-                  <div className="flex gap-4">
-                    <div 
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl"
-                      style={{ background: 'rgba(212,175,55,0.15)' }}
-                    >
-                      <Trophy size={22} style={{ color: '#D4AF37' }} />
+                  <div style={{
+                    width: "46px", height: "46px", borderRadius: "8px", flexShrink: 0,
+                    background: `${C.amber}20`,
+                    border: `1px solid ${C.amber}40`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <Trophy size={20} style={{ color: C.amberLight }} />
+                  </div>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.3rem" }}>
+                      <span style={{ fontSize: "1rem" }}>{m.flag}</span>
+                      <span style={{
+                        fontFamily: font.sans, fontWeight: 700,
+                        fontSize: "0.62rem", letterSpacing: "0.16em",
+                        textTransform: "uppercase", color: C.amberLight,
+                      }}>{m.level}</span>
                     </div>
-                    <div>
-                      <p 
-                        className="mb-1 text-xs font-semibold tracking-widest"
-                        style={{ color: '#D4AF37' }}
-                      >
-                        {m.level}
-                      </p>
-                      <h3 
-                        className="mb-1 text-lg font-bold text-white"
-                        style={{ fontFamily: 'Playfair Display, serif' }}
-                      >
-                        {m.event}
-                      </h3>
-                      <p style={{ color: 'rgba(255,255,255,0.6)' }}>
-                        {m.achievement}
-                      </p>
-                    </div>
+                    <h3 style={{
+                      fontFamily: font.display, fontWeight: 700,
+                      fontSize: "1.15rem", color: C.white, lineHeight: 1.3,
+                      marginBottom: "0.25rem",
+                    }}>
+                      {m.event}
+                    </h3>
+                    <p style={{ fontFamily: font.sans, fontSize: "0.8rem", color: `rgba(255,240,200,0.55)` }}>
+                      {m.achievement}
+                    </p>
                   </div>
                 </motion.div>
               ))}
             </div>
-            <motion.div 
-              className="mt-12 rounded-3xl border p-8 text-center"
-              style={{ background: 'rgba(212,175,55,0.08)', borderColor: 'rgba(212,175,55,0.2)' }}
-              initial={{ opacity: 0, y: 30 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              viewport={{ once: true }}
+
+            {/* Tally callout */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              style={{
+                background: `${C.amber}12`,
+                border: `1px solid ${C.amber}35`,
+                borderRadius: "12px",
+                padding: "2.5rem",
+                textAlign: "center",
+              }}
             >
-              <Award size={40} className="mx-auto mb-4" style={{ color: '#D4AF37' }} />
-              <p 
-                className="text-2xl font-bold text-white"
-                style={{ fontFamily: 'Cormorant Garamond, serif' }}
-              >
-                52 Medals across 13 disciplines at National and International levels
+              <Award size={36} style={{ color: C.amberLight, margin: "0 auto 1rem" }} />
+              <p style={{
+                fontFamily: font.display, fontWeight: 700,
+                fontSize: "clamp(1.4rem, 3vw, 2rem)",
+                color: C.white, lineHeight: 1.4,
+              }}>
+                52 Medals across{" "}
+                <em style={{ fontStyle: "italic", color: C.amberGlow }}>13 disciplines</em>{" "}
+                at National and International levels
               </p>
             </motion.div>
           </div>
         </section>
 
-        {/* Success Stories Section */}
-        <section className="py-24" style={{ background: '#FAF7F2' }}>
-          <div className="mx-auto max-w-4xl px-4 text-center">
-            <SectionHeading 
-              eyebrow="Success Stories" 
-              title="Voices of Change" 
-              subtitle="Real stories of children and families whose lives have been transformed through KET India." 
-            />
-            <div className="grid gap-6 md:grid-cols-3">
+        {/* ════════════════════════════════════════════════════
+            SUCCESS STORIES
+        ════════════════════════════════════════════════════ */}
+        <section style={{ background: C.pale, padding: "7rem 1.5rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+
+            <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+              <Eyebrow>Success Stories</Eyebrow>
+              <h2 style={{
+                fontFamily: font.display, fontWeight: 700,
+                fontSize: "clamp(2rem, 4vw, 2.8rem)", color: C.textMain,
+                letterSpacing: "-0.01em", marginBottom: "0.75rem",
+              }}>Voices of Change</h2>
+              <Rule />
+              <p style={{ fontFamily: font.sans, fontSize: "0.9rem", color: C.textMuted, maxWidth: "440px", margin: "0 auto", lineHeight: 1.7 }}>
+                Real stories of children and families whose lives have been transformed through KET India.
+              </p>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
               {successStories.map((story, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
-                  className="rounded-2xl border bg-white p-7 text-left"
-                  style={{ borderColor: 'rgba(123,158,135,0.15)' }}
-                  initial={{ opacity: 0, y: 30 }} 
-                  whileInView={{ opacity: 1, y: 0 }} 
-                  viewport={{ once: true }} 
-                  transition={{ delay: i * 0.12 }}
+                  initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: i * 0.12 }}
+                  style={{
+                    background: C.white,
+                    border: `1px solid ${C.border}`,
+                    borderRadius: "10px",
+                    padding: "2.25rem",
+                    position: "relative",
+                    boxShadow: `0 8px 32px rgba(58,34,0,0.05)`,
+                  }}
                 >
-                  <div 
-                    className="mb-4 flex h-10 w-10 items-center justify-center rounded-full"
-                    style={{ background: '#4A6B55' }}
-                  >
-                    <Star size={18} className="text-white" />
+                  {/* Amber top rule */}
+                  <div style={{
+                    position: "absolute", top: 0, left: "2.25rem", right: "2.25rem",
+                    height: "2px", background: C.amber, borderRadius: "0 0 2px 2px",
+                  }} />
+
+                  <Quote size={24} style={{ color: `${C.amber}60`, marginBottom: "1.1rem" }} />
+
+                  <p style={{
+                    fontFamily: font.serif, fontStyle: "italic",
+                    fontSize: "1.05rem", lineHeight: 1.8, color: C.textBody,
+                    marginBottom: "1.5rem",
+                  }}>
+                    "{story}"
+                  </p>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                    <div style={{
+                      width: "28px", height: "28px", borderRadius: "50%",
+                      background: `${C.amber}18`, border: `1px solid ${C.border}`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>
+                      <Star size={12} style={{ color: C.amber }} />
+                    </div>
+                    <span style={{
+                      fontFamily: font.sans, fontSize: "0.72rem",
+                      fontWeight: 600, letterSpacing: "0.08em",
+                      textTransform: "uppercase", color: C.textMuted,
+                    }}>
+                      Full Story Coming Soon
+                    </span>
                   </div>
-                  <p className="text-base leading-relaxed italic" style={{ color: '#4A4A4A' }}>
-                    {`"${story}"`}
-                  </p>
-                  <p className="mt-4 text-xs font-medium" style={{ color: '#7B9E87' }}>
-                    — Coming Soon
-                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
+
       </main>
       <Footer />
     </>
