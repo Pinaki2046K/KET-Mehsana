@@ -161,7 +161,7 @@ export default function AboutPage() {
                   boxShadow: `0 30px 80px rgba(58,34,0,0.15)`,
                 }}>
                   <img
-                    src="https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    src="/images/WhatsApp Image 2026-03-31 at 14.09.00 (2).jpeg"
                     alt="KET India students"
                     style={{ width: "100%", height: "100%", objectFit: "cover", filter: "sepia(12%) contrast(1.05)" }}
                   />

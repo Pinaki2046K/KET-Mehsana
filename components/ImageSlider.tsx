@@ -5,19 +5,19 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
-    url: "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    url: "images/image.png",
     alt: "Children receiving therapy support",
   },
   {
-    url: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    url: "images/WhatsApp Image 2026-03-31 at 14.08.59.jpeg",
     alt: "Special education classroom",
   },
   {
-    url: "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    url: "images/WhatsApp Image 2026-03-31 at 14.09.01 (1).jpeg",
     alt: "Vocational training program",
   },
   {
-    url: "https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    url: "images/WhatsApp Image 2026-03-31 at 14.09.03 (1).jpeg",
     alt: "Children and community",
   },
 ];

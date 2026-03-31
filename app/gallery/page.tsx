@@ -30,21 +30,45 @@ const font = {
 };
 
 // ─── Data ─────────────────────────────────────────────────────────
-const categories = ["All", "Education", "Therapy", "Sports", "Events", "Vocational"];
+const categories = ["All", "Education", "Therapy", "Sports", "Events", "Vocational", "Outing"];
 
 const galleryImages = [
-  { url: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Education",  title: "Special Education Program" },
-  { url: "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Therapy",    title: "Speech Therapy Session" },
-  { url: "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Events",     title: "Annual Day Celebration" },
-  { url: "https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Sports",     title: "Sports Day Training" },
-  { url: "https://images.pexels.com/photos/6646943/pexels-photo-6646943.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Vocational", title: "Craft & Vocational Skills" },
-  { url: "https://images.pexels.com/photos/6995126/pexels-photo-6995126.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Therapy",    title: "Physiotherapy Session" },
-  { url: "https://images.pexels.com/photos/6646944/pexels-photo-6646944.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Events",     title: "Community Gathering" },
-  { url: "https://images.pexels.com/photos/6646942/pexels-photo-6646942.jpeg?auto=compress&cs=tinysrgb&w=800",  cat: "Education",  title: "Classroom Learning" },
-  { url: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=600",  cat: "Sports",     title: "National Level Competition" },
-  { url: "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=600",  cat: "Vocational", title: "Packaging Skills Workshop" },
-  { url: "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=600",  cat: "Therapy",    title: "Sensory Integration" },
-  { url: "https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg?auto=compress&cs=tinysrgb&w=600",  cat: "Education",  title: "Art & Expression Class" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00 (4).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00 (2).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00 (3).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (4).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (9).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (10).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.02 (1).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.02 (9).jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.02.jpeg",  cat: "Education",  title: "Special Education Program" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00 (8).jpeg",  cat: "Therapy",    title: "Therapy Session" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00.jpeg",  cat: "Therapy",    title: "Therapy Session" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (8).jpeg",  cat: "Therapy",    title: "Therapy Session" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.03 (2).jpeg",  cat: "Therapy",    title: "Therapy Session" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01.jpeg",  cat: "Vocational",    title: "Vocational Skills" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.02 (6).jpeg",  cat: "Therapy",    title: "Therapy Session" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.08.59 (2).jpeg",  cat: "Events",     title: "Event Celebration" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (1).jpeg",  cat: "Sports",     title: "Sports and Games" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (2).jpeg",  cat: "Sports",     title: "Sports and Games" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (3).jpeg",  cat: "Sports",     title: "Sports and Games" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.02 (4).jpeg",  cat: "Sports",     title: "Sports and Games" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.02 (10).jpeg",  cat: "Sports",     title: "Sports and Games" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.03.jpeg",  cat: "Sports",     title: "Sports and Games" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.08.59 (1).jpeg",  cat: "Vocational", title: "Vocational Skills" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (6).jpeg",  cat: "Vocational", title: "Vocational Skills" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (7).jpeg",  cat: "Vocational", title: "Vocational Skills" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.03 (1).jpeg",  cat: "Events",     title: "Community Gathering" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.02 (12).jpeg",  cat: "Events",     title: "Community Gathering" },
+  
+  
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.01 (5).jpeg",  cat: "Vocational", title: "Vocational Skills" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.08.59 (3).jpeg",  cat: "Outing",    title: "Annual Outing" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00 (5).jpeg",  cat: "Outing",    title: "Annual Outing" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00 (6).jpeg",  cat: "Outing",    title: "Annual Outing" },
+  { url: "/images/WhatsApp Image 2026-03-31 at 14.09.00 (7).jpeg",  cat: "Outing",    title: "Annual Outing" },
+  
+  
 ];
 
 // ─── Page ─────────────────────────────────────────────────────────
@@ -285,7 +309,7 @@ export default function GalleryPage() {
             </motion.div>
 
             {/* ── Admin note ── */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
               style={{
                 marginTop: "3rem",
@@ -302,7 +326,7 @@ export default function GalleryPage() {
                 Place images in the <code style={{ background: C.parchment, border: `1px solid ${C.border}`, borderRadius: "3px", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.76rem" }}>/public/gallery/</code> folder and update the image URLs in{" "}
                 <code style={{ background: C.parchment, border: `1px solid ${C.border}`, borderRadius: "3px", padding: "0.1rem 0.4rem", fontFamily: "monospace", fontSize: "0.76rem" }}>app/gallery/page.tsx</code>.
               </p>
-            </motion.div>
+            </motion.div> */}
           </div>
         </section>
 

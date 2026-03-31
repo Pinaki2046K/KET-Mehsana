@@ -296,7 +296,7 @@ export default function Home() {
                   boxShadow: `0 30px 80px rgba(58,34,0,0.18)`,
                 }}>
                   <img
-                    src="https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    src="/images/WhatsApp Image 2026-03-31 at 14.09.00 (8).jpeg"
                     alt="Children at KET India"
                     style={{ width: "100%", height: "100%", objectFit: "cover", filter: "sepia(12%) contrast(1.05)" }}
                   />
@@ -528,11 +528,11 @@ export default function Home() {
               borderRadius: "12px", overflow: "hidden",
             }}>
               {[
-                { src: "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=800",  label: "Therapy Sessions",       row: "span 2" },
-                { src: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800",  label: "Special Education",      row: "span 1" },
-                { src: "https://images.pexels.com/photos/6995126/pexels-photo-6995126.jpeg?auto=compress&cs=tinysrgb&w=800",  label: "Sports & Champions",     row: "span 1" },
-                { src: "https://images.pexels.com/photos/6646943/pexels-photo-6646943.jpeg?auto=compress&cs=tinysrgb&w=800",  label: "Arts & Recreation",      row: "span 1" },
-                { src: "https://images.pexels.com/photos/6646944/pexels-photo-6646944.jpeg?auto=compress&cs=tinysrgb&w=800",  label: "Family & Community",     row: "span 1" },
+                { src: "images/WhatsApp Image 2026-03-31 at 14.09.00 (7).jpeg",  label: "Outings",       row: "span 2" },
+                { src: "images/WhatsApp Image 2026-03-31 at 14.09.01 (9).jpeg",  label: "Special Education",      row: "span 1" },
+                { src: "images/WhatsApp Image 2026-03-31 at 14.09.01 (10).jpeg",  label: "Sports & Champions",     row: "span 1" },
+                { src: "images/WhatsApp Image 2026-03-31 at 14.09.00 (2).jpeg",  label: "Arts & Recreation",      row: "span 1" },
+                { src: "images/WhatsApp Image 2026-03-31 at 14.09.03 (1).jpeg",  label: "Family & Community",     row: "span 1" },
               ].map((img, i) => (
                 <motion.div
                   key={i}
@@ -705,7 +705,7 @@ export default function Home() {
             >
               <div style={{ position: "relative", minHeight: "400px" }}>
                 <img
-                  src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src="images/WhatsApp Image 2026-03-31 at 14.09.02 (12).jpeg"
                   alt="Children learning"
                   style={{ width: "100%", height: "100%", objectFit: "cover", filter: "sepia(15%) contrast(1.04)" }}
                 />

@@ -32,7 +32,7 @@ const programs = [
       "Parent Guidance & Training",
     ],
     image:
-      "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "/images/WhatsApp Image 2026-03-31 at 14.09.01 (4).jpeg",
   },
   {
     icon: BookOpen,
@@ -49,7 +49,7 @@ const programs = [
       "Safe & Supportive Learning Environment",
     ],
     image:
-      "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "/images/WhatsApp Image 2026-03-31 at 14.09.01 (10).jpeg",
   },
   {
     icon: Briefcase,
@@ -67,7 +67,7 @@ const programs = [
       "Daily living & work-readiness skills",
     ],
     image:
-      "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "/images/WhatsApp Image 2026-03-31 at 14.09.01 (7).jpeg",
   },
   {
     icon: Dumbbell,
@@ -84,7 +84,7 @@ const programs = [
       "Discipline & leadership development",
     ],
     image:
-      "https://images.pexels.com/photos/6995126/pexels-photo-6995126.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "/images/WhatsApp Image 2026-03-31 at 14.09.01 (3).jpeg",
     special: { label: "52 Medals Won", sub: "National & International Level" },
   },
   {
@@ -102,7 +102,7 @@ const programs = [
       "Picnics & exposure visits",
     ],
     image:
-      "https://images.pexels.com/photos/6646943/pexels-photo-6646943.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "/images/WhatsApp Image 2026-03-31 at 14.08.59 (3).jpeg",
   },
   {
     icon: Heart,
@@ -119,7 +119,7 @@ const programs = [
       "Family integration workshops",
     ],
     image:
-      "https://images.pexels.com/photos/6646944/pexels-photo-6646944.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "/images/WhatsApp Image 2026-03-31 at 14.09.00 (7).jpeg",
   },
 ];
 
