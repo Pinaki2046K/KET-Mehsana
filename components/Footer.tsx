@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
-import {  Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { useEffect, useState } from "react";
 
 // ─── Design tokens ────────────────────────────────────────────────
 const C = {
@@ -34,12 +36,45 @@ const quickLinks = [
 ];
 
 const socials = [
-  // { Icon: Facebook,  href: "#", label: "Facebook"  },
-  // { Icon: Instagram, href: "#", label: "Instagram" },
-  { Icon: Send,      href: "#", label: "Telegram"  },
+  { Icon: Send, href: "#", label: "Telegram" },
 ];
 
+function useBreakpoint() {
+  const [width, setWidth] = useState(1200);
+  useEffect(() => {
+    const update = () => setWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return {
+    isMobile:  width < 640,
+    isTablet:  width >= 640 && width < 1024,
+    isDesktop: width >= 1024,
+  };
+}
+
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <h3 style={{
+      fontFamily: font.display, fontWeight: 700, fontSize: "1.1rem",
+      color: C.textWhite, marginBottom: "1.4rem", letterSpacing: "0.01em",
+    }}>{children}</h3>
+    <div style={{ width: "28px", height: "2px", background: C.amber, borderRadius: "99px", marginBottom: "1.4rem" }} />
+  </>
+);
+
 export default function Footer() {
+  const bp = useBreakpoint();
+
+  // Grid layout:
+  // Desktop:  4-col (brand | links | contact | support)
+  // Tablet:   2-col (brand+links | contact+support)
+  // Mobile:   1-col stacked
+  const gridCols = bp.isDesktop ? "1.8fr 1fr 1fr 1.4fr"
+                 : bp.isTablet  ? "1fr 1fr"
+                 : "1fr";
+
   return (
     <footer style={{ background: C.deep, fontFamily: font.sans }}>
 
@@ -50,25 +85,21 @@ export default function Footer() {
       }} />
 
       {/* ── Main content ── */}
-      <div style={{ maxWidth: "1220px", margin: "0 auto", padding: "5rem 2rem 3.5rem" }}>
+      <div style={{ maxWidth: "1220px", margin: "0 auto", padding: bp.isMobile ? "3.5rem 1.5rem 2.5rem" : "5rem 2rem 3.5rem" }}>
         <div style={{
           display: "grid",
-          gridTemplateColumns: "1.8fr 1fr 1fr 1.4fr",
-          gap: "4rem",
+          gridTemplateColumns: gridCols,
+          gap: bp.isMobile ? "2.75rem" : bp.isTablet ? "3rem" : "4rem",
           alignItems: "start",
         }}>
 
           {/* ── Column 1 — Brand ── */}
           <div>
-            {/* Logo mark */}
             <div style={{ display: "flex", alignItems: "center", gap: "0.9rem", marginBottom: "1.5rem" }}>
               <div style={{
-                width: "46px", height: "46px",
-                borderRadius: "50%",
-                border: `2px solid ${C.amberDim}`,
-                overflow: "hidden",
-                flexShrink: 0,
-                background: C.card,
+                width: "46px", height: "46px", borderRadius: "50%",
+                border: `2px solid ${C.amberDim}`, overflow: "hidden",
+                flexShrink: 0, background: C.card,
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}>
                 <img
@@ -85,93 +116,51 @@ export default function Footer() {
               </div>
               <div>
                 <div style={{
-                  fontFamily: font.display,
-                  fontWeight: 700,
-                  fontSize: "1.25rem",
-                  color: C.textWhite,
-                  lineHeight: 1.2,
-                  letterSpacing: "0.01em",
-                }}>
-                  Khodiyar Education Trust
-                </div>
+                  fontFamily: font.display, fontWeight: 700, fontSize: "1.25rem",
+                  color: C.textWhite, lineHeight: 1.2, letterSpacing: "0.01em",
+                }}>Khodiyar Education Trust</div>
                 <div style={{
-                  fontSize: "0.6rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: C.amberDim,
-                  marginTop: "2px",
-                }}>
-                  KET India · Est. 1994
-                </div>
+                  fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.14em",
+                  textTransform: "uppercase", color: C.amberDim, marginTop: "2px",
+                }}>KET India · Est. 1994</div>
               </div>
             </div>
 
-            {/* Tagline */}
             <p style={{
-              fontFamily: font.serif,
-              fontStyle: "italic",
-              fontSize: "1.05rem",
-              lineHeight: 1.75,
-              color: C.textBody,
-              marginBottom: "1.25rem",
-              maxWidth: "320px",
+              fontFamily: font.serif, fontStyle: "italic",
+              fontSize: "1.05rem", lineHeight: 1.75, color: C.textBody,
+              marginBottom: "1.25rem", maxWidth: "320px",
             }}>
               "Empowering abilities, transforming lives — one child at a time."
             </p>
 
-            {/* Description */}
             <p style={{
-              fontSize: "0.82rem",
-              lineHeight: 1.85,
-              color: C.textMuted,
-              maxWidth: "320px",
-              marginBottom: "1.5rem",
+              fontSize: "0.82rem", lineHeight: 1.85, color: C.textMuted,
+              maxWidth: "320px", marginBottom: "1.5rem",
             }}>
-              A registered non-profit dedicated to transforming the lives of children with intellectual disabilities through education, therapy, and compassionate care.
+              A registered non-profit dedicated to transforming the lives of children with
+              intellectual disabilities through education, therapy, and compassionate care.
             </p>
 
-            {/* Certifications */}
-            <div style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.5rem",
-              marginBottom: "1.75rem",
-            }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.75rem" }}>
               {["12A", "80G", "National Trust", "PWD Act 1995"].map((cert) => (
                 <span key={cert} style={{
-                  fontSize: "0.62rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: C.amber,
-                  border: `1px solid ${C.border}`,
-                  padding: "0.25rem 0.6rem",
-                  borderRadius: "3px",
-                  background: `${C.amber}08`,
-                }}>
-                  {cert}
-                </span>
+                  fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.08em",
+                  textTransform: "uppercase", color: C.amber,
+                  border: `1px solid ${C.border}`, padding: "0.25rem 0.6rem",
+                  borderRadius: "3px", background: `${C.amber}08`,
+                }}>{cert}</span>
               ))}
             </div>
 
-            {/* Social icons */}
             <div style={{ display: "flex", gap: "0.6rem" }}>
               {socials.map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  style={{
-                    width: "36px", height: "36px",
-                    borderRadius: "50%",
-                    background: C.card,
-                    border: `1px solid ${C.border}`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: C.textMuted,
-                    textDecoration: "none",
-                    transition: "all 0.2s",
-                  }}
+                <a key={label} href={href} aria-label={label} style={{
+                  width: "36px", height: "36px", borderRadius: "50%",
+                  background: C.card, border: `1px solid ${C.border}`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: C.textMuted, textDecoration: "none", transition: "all 0.2s",
+                }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLElement;
                     el.style.background = `${C.amber}22`;
@@ -193,43 +182,20 @@ export default function Footer() {
 
           {/* ── Column 2 — Quick Links ── */}
           <div>
-            <h3 style={{
-              fontFamily: font.display,
-              fontWeight: 700,
-              fontSize: "1.1rem",
-              color: C.textWhite,
-              marginBottom: "1.4rem",
-              letterSpacing: "0.01em",
-            }}>
-              Quick Links
-            </h3>
-            {/* Amber rule */}
-            <div style={{ width: "28px", height: "2px", background: C.amber, borderRadius: "99px", marginBottom: "1.4rem" }} />
-
+            <SectionHeading>Quick Links</SectionHeading>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
               {quickLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  style={{
-                    fontSize: "0.85rem",
-                    color: C.textMuted,
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    transition: "color 0.2s",
-                    lineHeight: 1.4,
-                  }}
+                <Link key={link.href} href={link.href} style={{
+                  fontSize: "0.85rem", color: C.textMuted, textDecoration: "none",
+                  display: "flex", alignItems: "center", gap: "0.5rem",
+                  transition: "color 0.2s", lineHeight: 1.4,
+                }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = C.amberLight)}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = C.textMuted)}
                 >
                   <span style={{
-                    width: "4px", height: "4px",
-                    borderRadius: "50%",
-                    background: C.amberDim,
-                    flexShrink: 0,
-                    display: "inline-block",
+                    width: "4px", height: "4px", borderRadius: "50%",
+                    background: C.amberDim, flexShrink: 0, display: "inline-block",
                   }} />
                   {link.label}
                 </Link>
@@ -239,31 +205,14 @@ export default function Footer() {
 
           {/* ── Column 3 — Contact ── */}
           <div>
-            <h3 style={{
-              fontFamily: font.display,
-              fontWeight: 700,
-              fontSize: "1.1rem",
-              color: C.textWhite,
-              marginBottom: "1.4rem",
-              letterSpacing: "0.01em",
-            }}>
-              Contact Us
-            </h3>
-            <div style={{ width: "28px", height: "2px", background: C.amber, borderRadius: "99px", marginBottom: "1.4rem" }} />
-
+            <SectionHeading>Contact Us</SectionHeading>
             <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}>
               <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
                 <Mail size={14} style={{ color: C.amber, marginTop: "3px", flexShrink: 0 }} />
-                <a
-                  href="mailto:khodiyareducationtrust@yahoo.in"
-                  style={{
-                    fontSize: "0.82rem",
-                    color: C.textMuted,
-                    textDecoration: "none",
-                    lineHeight: 1.6,
-                    wordBreak: "break-all",
-                    transition: "color 0.2s",
-                  }}
+                <a href="mailto:khodiyareducationtrust@yahoo.in" style={{
+                  fontSize: "0.82rem", color: C.textMuted, textDecoration: "none",
+                  lineHeight: 1.6, wordBreak: "break-all", transition: "color 0.2s",
+                }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = C.amberLight)}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = C.textMuted)}
                 >
@@ -273,8 +222,7 @@ export default function Footer() {
               <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
                 <MapPin size={14} style={{ color: C.amber, marginTop: "3px", flexShrink: 0 }} />
                 <p style={{ fontSize: "0.82rem", color: C.textMuted, lineHeight: 1.6 }}>
-                  Modhera Road, Mahesana<br />
-                  Gujarat – 384002, India
+                  Modhera Road, Mahesana<br />Gujarat – 384002, India
                 </p>
               </div>
               <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
@@ -286,61 +234,34 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* ── Column 4 — Donation / Bank ── */}
+          {/* ── Column 4 — Support / Donation ── */}
           <div>
-            <h3 style={{
-              fontFamily: font.display,
-              fontWeight: 700,
-              fontSize: "1.1rem",
-              color: C.textWhite,
-              marginBottom: "1.4rem",
-              letterSpacing: "0.01em",
-            }}>
-              Support Us
-            </h3>
-            <div style={{ width: "28px", height: "2px", background: C.amber, borderRadius: "99px", marginBottom: "1.4rem" }} />
-
+            <SectionHeading>Support Us</SectionHeading>
             <p style={{
-              fontSize: "0.8rem",
-              color: C.textMuted,
-              lineHeight: 1.75,
-              marginBottom: "1.25rem",
+              fontSize: "0.8rem", color: C.textMuted, lineHeight: 1.75, marginBottom: "1.25rem",
             }}>
               Your donation is eligible for 80G tax exemption. Direct bank transfer details below.
             </p>
 
-            {/* Bank card */}
             <div style={{
-              background: C.card,
-              border: `1px solid ${C.border}`,
-              borderRadius: "8px",
-              padding: "1.1rem 1.25rem",
-              marginBottom: "1.5rem",
+              background: C.card, border: `1px solid ${C.border}`,
+              borderRadius: "8px", padding: "1.1rem 1.25rem", marginBottom: "1.5rem",
             }}>
               <p style={{
-                fontSize: "0.62rem",
-                fontWeight: 700,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: C.amber,
-                marginBottom: "0.9rem",
-              }}>
-                Bank Details
-              </p>
+                fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em",
+                textTransform: "uppercase", color: C.amber, marginBottom: "0.9rem",
+              }}>Bank Details</p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
                 {[
-                  ["Bank",    "HDFC Bank, Modhera Road"],
-                  ["A/c Name","Khodiyar Education Trust"],
-                  ["A/c No.", "50100200865123"],
-                  ["IFSC",    "HDFC00037778"],
+                  ["Bank",     "HDFC Bank, Modhera Road"],
+                  ["A/c Name", "Khodiyar Education Trust"],
+                  ["A/c No.",  "50100200865123"],
+                  ["IFSC",     "HDFC00037778"],
                 ].map(([label, value]) => (
                   <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: "0.5rem" }}>
                     <span style={{ fontSize: "0.7rem", color: C.textMuted, flexShrink: 0 }}>{label}</span>
                     <span style={{
-                      fontSize: "0.7rem",
-                      color: C.textBody,
-                      textAlign: "right",
-                      fontWeight: 500,
+                      fontSize: "0.7rem", color: C.textBody, textAlign: "right", fontWeight: 500,
                       letterSpacing: label === "A/c No." || label === "IFSC" ? "0.05em" : "normal",
                     }}>{value}</span>
                   </div>
@@ -348,23 +269,14 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Donate CTA */}
-            <Link
-              href="/get-involved"
-              style={{
-                display: "block",
-                textAlign: "center",
-                background: C.amber,
-                color: C.textWhite,
-                padding: "0.75rem",
-                borderRadius: "5px",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                textDecoration: "none",
-                transition: "background 0.2s",
-              }}
+            <Link href="/get-involved" style={{
+              display: "block", textAlign: "center",
+              background: C.amber, color: C.textWhite,
+              padding: "0.75rem", borderRadius: "5px",
+              fontSize: "0.75rem", fontWeight: 700,
+              letterSpacing: "0.12em", textTransform: "uppercase",
+              textDecoration: "none", transition: "background 0.2s",
+            }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = C.amberLight)}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = C.amber)}
             >
@@ -375,23 +287,20 @@ export default function Footer() {
 
         {/* ── Bottom bar ── */}
         <div style={{
-          marginTop: "4rem",
-          paddingTop: "1.75rem",
+          marginTop: "4rem", paddingTop: "1.75rem",
           borderTop: `1px solid ${C.border}`,
           display: "flex",
+          flexDirection: bp.isMobile ? "column" : "row",
           justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
+          alignItems: bp.isMobile ? "flex-start" : "center",
           gap: "0.75rem",
         }}>
           <p style={{ fontSize: "0.75rem", color: C.textMuted }}>
             © 2025 Khodiyar Education Trust. All rights reserved.
           </p>
           <p style={{
-            fontSize: "0.75rem",
-            fontFamily: font.serif,
-            fontStyle: "italic",
-            color: C.amberDim,
+            fontSize: "0.75rem", fontFamily: font.serif,
+            fontStyle: "italic", color: C.amberDim,
           }}>
             Empowering abilities. Transforming lives.
           </p>
